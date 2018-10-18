@@ -1,2 +1,2 @@
-# WeatherForecast
-Weather Forecast Android app
+# Climato
+Awesome Weather Forecast app
