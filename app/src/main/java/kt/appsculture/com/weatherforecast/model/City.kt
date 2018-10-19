@@ -3,16 +3,18 @@ package kt.appsculture.com.weatherforecast.model
 import com.google.gson.annotations.SerializedName
 
 data class City(
-    val id: Integer,
-    val name: String,
-    @SerializedName("coord")
-    val coordinates: Coordinates,
-    val country: String
+        //Changed to var for creating test data
+        var id: Integer,
+        var name: String,
+        @SerializedName("coord")
+        var coordinates: Coordinates,
+        var country: String
 )
 
-data class Coordinates (
-    @SerializedName("lon")
-    val longitude: Double,
-    @SerializedName("lat")
-    val latitude: Double
+data class Coordinates(
+        //Changed to var for creating test data
+        @SerializedName("lon")
+        var longitude: Double,
+        @SerializedName("lat")
+        var latitude: Double
 )

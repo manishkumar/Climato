@@ -3,30 +3,34 @@ package kt.appsculture.com.weatherforecast.model
 import com.google.gson.annotations.SerializedName
 
 data class Forecast(
-    var date: Long,
-    @SerializedName("main")
-    val temperature: Temp,
-    val weather: List<Condition>,
-    val wind: Wind
+        //Changed to var for creating test data
+        var date: Long,
+        @SerializedName("main")
+        var temperature: Temp,
+        var weather: List<Condition>,
+        var wind: Wind
 )
 
 
 data class Temp(
-    @SerializedName("temp_min")
-    val min: Double,
-    @SerializedName("temp_max")
-    val max: Double,
-    val pressure: Double,
-    val humidity: Int
+        //Changed to var for creating test data
+        @SerializedName("temp_min")
+        var min: Double,
+        @SerializedName("temp_max")
+        var max: Double,
+        var pressure: Double,
+        var humidity: Int
 )
 
 data class Condition(
-    val id: Int
+        //Changed to var for creating test data
+        var id: Int
 )
 
 data class Wind(
-    @SerializedName("speed")
-    val speed: Double,
-    @SerializedName("deg")
-    val direction: Double
+        //Changed to var for creating test data
+        @SerializedName("speed")
+        var speed: Double,
+        @SerializedName("deg")
+        var direction: Double
 )
