@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
 import java.net.HttpURLConnection
-import java.util.HashMap
+import java.util.*
 
 
 interface OpenWeatherMapService {
