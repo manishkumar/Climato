@@ -4,10 +4,10 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.widget.TextView
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.model.Marker
 import com.appsculture.climato.R
 import com.appsculture.climato.model.Forecast
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.Marker
 
 class CustomMarkerInfo(context: Context) : GoogleMap.InfoWindowAdapter {
     override fun getInfoWindow(p0: Marker?): View? {
