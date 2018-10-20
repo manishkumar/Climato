@@ -22,6 +22,35 @@ allprojects {
     }
 }
 
+ext {
+    //app
+    compileSdkVersion = 27
+    minSDKVersion = 21
+    targetSdkVersion = 27
+    supportLibraryVersion = "27.1.1"
+    lifecycleExtensionVersion = "1.1.1"
+    playServicesVersion = "9.2.1"
+    playServicesMapsVersion = "16.0.0"
+    constraintLayoutVersion = "1.0.2"
+
+    moshiKotlinVersion = "1.5.0"
+    dagger2Version = "2.13"
+    gsonVersion = "2.8.5"
+    retrofitVersion = "2.3.0"
+    moshiConverterVersion = "2.3.0"
+
+    rxJavaAdapterVersion = "2.3.0"
+    rxAndroidVersion = "2.0.2"
+    rxJava2Version = "2.1.0"
+
+    //test
+    junitVersion = "4.12"
+
+    //testImpl
+    testRunnerVersion = "1.0.1"
+    testEspressoVersion = "3.0.1"
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

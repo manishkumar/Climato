@@ -1,4 +1,4 @@
-package kt.appsculture.com.weatherforecast
+package com.appsculture.climato
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

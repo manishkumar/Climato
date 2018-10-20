@@ -1,15 +1,14 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 27
     defaultConfig {
-        applicationId "kt.appsculture.com.weatherforecast"
-        minSdkVersion 21
-        targetSdkVersion 27
+        applicationId "com.appsculture.climato"
+        minSdkVersion rootProject.ext.minSDKVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -23,25 +22,25 @@ android {
 }
 
 dependencies {
-    ext.android_support_version = '27.1.1'
-    ext.gson_version = '2.3.0'
+
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation "com.android.support:appcompat-v7:$android_support_version"
-    implementation "com.android.support:recyclerview-v7:$android_support_version"
-    implementation "com.android.support:preference-v7:$android_support_version"
+    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
+    implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
+    implementation "com.android.support:preference-v7:$supportLibraryVersion"
 
-    implementation 'com.google.code.gson:gson:2.8.5'
-    implementation "com.squareup.retrofit2:retrofit:$ext.gson_version"
-    implementation "com.squareup.retrofit2:converter-gson:$ext.gson_version"
+    implementation "com.google.code.gson:gson:$gsonVersion"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "com.google.android.gms:play-services-maps:$playServicesMapsVersion"
+
 
     // Tests
-    implementation 'com.google.android.gms:play-services-maps:16.0.0'
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

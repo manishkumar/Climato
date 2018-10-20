@@ -1,4 +1,4 @@
-package kt.appsculture.com.weatherforecast.ui
+package com.appsculture.climato.ui.map
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -10,8 +10,9 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import kt.appsculture.com.weatherforecast.R
-import kt.appsculture.com.weatherforecast.model.*
+import com.appsculture.climato.model.*
+import com.appsculture.climato.R
+import com.appsculture.climato.ui.map.CustomMarkerInfo
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -62,23 +63,78 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         //Get Details For Each city here
 
         when (item.id) {
-            Integer(1) -> return Forecast(System.currentTimeMillis(), Temp(21.5, 29.5, 1017.0, 40), arrayListOf<Condition>(), Wind(11.0, 4.0))
-            Integer(2) -> return Forecast(System.currentTimeMillis(), Temp(25.5, 37.8, 1020.0, 20), arrayListOf<Condition>(), Wind(15.0, 6.0))
-            Integer(3) -> return Forecast(System.currentTimeMillis(), Temp(26.0, 33.4, 1030.0, 60), arrayListOf<Condition>(), Wind(17.0, 7.0))
-            Integer(4) -> return Forecast(System.currentTimeMillis(), Temp(16.8, 24.6, 1040.0, 33), arrayListOf<Condition>(), Wind(14.0, 2.0))
-            Integer(5) -> return Forecast(System.currentTimeMillis(), Temp(31.0, 42.6, 1050.0, 55), arrayListOf<Condition>(), Wind(21.0, 3.0))
-            else -> return return Forecast(System.currentTimeMillis(), Temp(21.5, 29.5, 1017.0, 40), arrayListOf<Condition>(), Wind(11.0, 4.0))
+            Integer(1) -> return Forecast(
+                System.currentTimeMillis(),
+                Temp(21.5, 29.5, 1017.0, 40),
+                arrayListOf<Condition>(),
+                Wind(11.0, 4.0)
+            )
+            Integer(2) -> return Forecast(
+                System.currentTimeMillis(),
+                Temp(25.5, 37.8, 1020.0, 20),
+                arrayListOf<Condition>(),
+                Wind(15.0, 6.0)
+            )
+            Integer(3) -> return Forecast(
+                System.currentTimeMillis(),
+                Temp(26.0, 33.4, 1030.0, 60),
+                arrayListOf<Condition>(),
+                Wind(17.0, 7.0)
+            )
+            Integer(4) -> return Forecast(
+                System.currentTimeMillis(),
+                Temp(16.8, 24.6, 1040.0, 33),
+                arrayListOf<Condition>(),
+                Wind(14.0, 2.0)
+            )
+            Integer(5) -> return Forecast(
+                System.currentTimeMillis(),
+                Temp(31.0, 42.6, 1050.0, 55),
+                arrayListOf<Condition>(),
+                Wind(21.0, 3.0)
+            )
+            else -> return return Forecast(
+                System.currentTimeMillis(),
+                Temp(21.5, 29.5, 1017.0, 40),
+                arrayListOf<Condition>(),
+                Wind(11.0, 4.0)
+            )
         }
     }
 
     private fun getCityList() {
         //Fetch data from local storage.
 
-        val chandniChowk = City(Integer(1), "Chandni Chowk", Coordinates(77.2303, 28.6506), "India");
-        val lajpatNagar = City(Integer(2), "Lajpat Nagar", Coordinates(77.2364, 28.5705), "India");
-        val sarojni = City(Integer(3), "Sarojni Nagar", Coordinates(77.1990, 28.5757), "India");
-        val cp = City(Integer(4), "Connaught Place", Coordinates(77.2167, 28.6315), "India");
-        val saket = City(Integer(5), "Saket", Coordinates(77.2015, 28.5205), "India");
+        val chandniChowk = City(
+            Integer(1),
+            "Chandni Chowk",
+            Coordinates(77.2303, 28.6506),
+            "India"
+        );
+        val lajpatNagar = City(
+            Integer(2),
+            "Lajpat Nagar",
+            Coordinates(77.2364, 28.5705),
+            "India"
+        );
+        val sarojni = City(
+            Integer(3),
+            "Sarojni Nagar",
+            Coordinates(77.1990, 28.5757),
+            "India"
+        );
+        val cp = City(
+            Integer(4),
+            "Connaught Place",
+            Coordinates(77.2167, 28.6315),
+            "India"
+        );
+        val saket = City(
+            Integer(5),
+            "Saket",
+            Coordinates(77.2015, 28.5205),
+            "India"
+        );
 
         cityList.add(chandniChowk)
         cityList.add(lajpatNagar)

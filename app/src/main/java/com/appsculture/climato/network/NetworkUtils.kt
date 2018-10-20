@@ -1,6 +1,6 @@
-package kt.appsculture.com.weatherforecast.network
+package com.appsculture.climato.network
 
-import kt.appsculture.com.weatherforecast.model.OpenWeatherMapResponse
+import com.appsculture.climato.model.WeatherData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,7 +14,7 @@ import java.util.HashMap
 
 interface OpenWeatherMapService {
     @GET("forecast")
-    fun getForecast(@QueryMap options: Map<String, String>): Call<OpenWeatherMapResponse>
+    fun getForecast(@QueryMap options: Map<String, String>): Call<WeatherData>
 }
 
 object NetworkUtils {
@@ -59,20 +59,20 @@ object NetworkUtils {
 
         retrofit?.let {
             it.create(OpenWeatherMapService::class.java).getForecast(queryMap).enqueue(object :
-                Callback<OpenWeatherMapResponse> {
+                Callback<WeatherData> {
                 override fun onResponse(
-                    call: Call<OpenWeatherMapResponse>,
-                    response: Response<OpenWeatherMapResponse>
+                    call: Call<WeatherData>,
+                    response: Response<WeatherData>
                 ) {
                     if (response.isSuccessful && response.body()?.messageCode == HttpURLConnection.HTTP_OK) {
-                        val openWeatherMapResponse = response.body() as OpenWeatherMapResponse
+                        val openWeatherMapResponse = response.body() as WeatherData
                         callback.onSuccess(openWeatherMapResponse)
                     } else {
                         callback.onFailure("Failed to get")
                     }
                 }
 
-                override fun onFailure(call: Call<OpenWeatherMapResponse>, t: Throwable) {
+                override fun onFailure(call: Call<WeatherData>, t: Throwable) {
                     t.printStackTrace()
                     callback.onFailure("Failed to get")
                 }
