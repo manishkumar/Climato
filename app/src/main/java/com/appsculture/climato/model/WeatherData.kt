@@ -1,9 +1,8 @@
-package kt.appsculture.com.weatherforecast.model
+package com.appsculture.climato.model
 
-import android.content.ContentValues
 import com.google.gson.annotations.SerializedName
 
-data class OpenWeatherMapResponse(
+data class WeatherData(
     val city: City,
     @SerializedName("cod")
     val messageCode: Int,

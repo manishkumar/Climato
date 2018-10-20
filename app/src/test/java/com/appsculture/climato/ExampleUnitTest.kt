@@ -1,4 +1,4 @@
-package kt.appsculture.com.weatherforecast
+package com.appsculture.climato
 
 import org.junit.Test
 
