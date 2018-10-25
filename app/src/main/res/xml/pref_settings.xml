@@ -1,0 +1,19 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/settings_title_units">
+        <ListPreference
+            android:defaultValue="°C"
+            android:entries="@array/temperatureUnits"
+            android:entryValues="@array/temperatureUnitsValues"
+            android:key="unit"
+            android:title="@string/setting_tempUnits" />
+
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/refreshIntervals"
+            android:entryValues="@array/refreshIntervalsValues"
+            android:key="refreshInterval"
+            android:title="@string/setting_refreshInterval" />
+
+    </PreferenceCategory>
+</PreferenceScreen>

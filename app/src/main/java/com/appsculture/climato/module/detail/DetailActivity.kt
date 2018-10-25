@@ -9,7 +9,6 @@ import com.appsculture.climato.model.Forecast
 import com.appsculture.climato.utils.WeatherDataFormatter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_detail.*
-import java.util.*
 import javax.inject.Inject
 
 class DetailActivity : AppCompatActivity() {
@@ -41,10 +40,10 @@ class DetailActivity : AppCompatActivity() {
         tvPressure.text = formatter.prettyPressure(forecast.main?.pressure)
         tvTemperature.text = formatter.prettyKelvinToCelsius(forecast.main?.temperature)
 
+        val id = forecast.weather?.id.let { it!! }
+        val date = forecast.date.let { it!! }
         val weatherFont = Typeface.createFromAsset(getAssets(), Constants.fontPath)
         ivIcon.setTypeface(weatherFont)
-        forecast.weather?.id.let {
-            ivIcon.setText(formatter.weatherIcon(it!!, Calendar.HOUR_OF_DAY))
-        }
+        ivIcon.setText(formatter.weatherIcon(id, date))
     }
 }

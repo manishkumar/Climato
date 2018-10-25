@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import com.appsculture.climato.R
 import com.appsculture.climato.app.APIConstants
+import java.util.*
 import javax.inject.Inject
 
 class WeatherDataFormatter @Inject constructor(private val context: Context) {
@@ -43,8 +44,12 @@ class WeatherDataFormatter @Inject constructor(private val context: Context) {
         return Uri.parse(url)
     }
 
-    fun weatherIcon(id: Int, hourOfDay: Int): String {
-        val id = id / 100
+    fun weatherIcon(actualId: Int, date: Long): String {
+        val cal = Calendar.getInstance()
+        cal.timeInMillis = date * 1000
+        val hourOfDay = cal.get(Calendar.HOUR_OF_DAY)
+
+        val id = actualId / 100
         var icon = ""
         if (id == 800) {
             if (hourOfDay >= 7 && hourOfDay < 20) {
