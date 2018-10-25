@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Toast
 import com.appsculture.climato.R
 import com.appsculture.climato.model.Forecast
+import com.appsculture.climato.module.converters.TemperatureConverter
 import com.appsculture.climato.module.map.MapsActivity
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_home.*
@@ -22,10 +23,13 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     @Inject
     lateinit var homeViewModelFactory: HomeViewModelFactory
 
+    @Inject
+    lateinit var temperatureConverter: TemperatureConverter
+
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var layoutManager: RecyclerView.LayoutManager
-    private var adapter = ForecastListAdapter(ArrayList())
+    private lateinit var adapter: ForecastListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,48 +41,50 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         initViewModel()
     }
 
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.loadSavedForecasts()
+    }
+
     private fun initViews() {
         initRecyclerView()
-        btnAPI.setOnClickListener(this)
-        btnDB.setOnClickListener(this)
+        btnSearch.setOnClickListener(this)
         fabMapView.setOnClickListener(this)
     }
 
     private fun initRecyclerView() {
+        adapter = ForecastListAdapter(ArrayList(), temperatureConverter)
         layoutManager = LinearLayoutManager(this)
         recyclerView = findViewById(R.id.rvForecast)
         recyclerView.layoutManager = layoutManager
     }
 
-
     private fun initViewModel() {
         homeViewModel = ViewModelProviders.of(this, homeViewModelFactory).get(
-                HomeViewModel::class.java)
+                HomeViewModel::class.java
+        )
 
-        homeViewModel.forecastsResult().observe(this,
+        homeViewModel.allForecastsResult.observe(this,
                 Observer<List<Forecast>> {
                     val forecasts = it.let { it!! }
                     adapter.addForecastToList(forecasts)
                     recyclerView.adapter = adapter
                 })
 
-        homeViewModel.forecastsError().observe(this, Observer<String> {
+        homeViewModel.allForecastsError.observe(this, Observer<String> {
             if (it != null) {
-                Toast.makeText(this, resources.getString(R.string.forecast_loading_error) + it,
-                        Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                        this, resources.getString(R.string.forecast_loading_error) + it,
+                        Toast.LENGTH_SHORT
+                ).show()
             }
-        })
-
-        homeViewModel.forecastsLoader().observe(this, Observer<Boolean> {
-            //if (it == false) progressBar.visibility = View.GONE
         })
     }
 
     override fun onClick(v: View?) {
         when (v?.getId()) {
             R.id.fabMapView -> switchToMapView()
-            R.id.btnAPI -> homeViewModel.searchForecast("Delhi")
-            R.id.btnDB -> homeViewModel.loadSavedForecasts()
+            R.id.btnSearch -> homeViewModel.searchForecast(etSearch.text.toString())
         }
     }
 
@@ -86,6 +92,5 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
         val intent = Intent(this, MapsActivity::class.java)
         startActivity(intent)
     }
-
 
 }

@@ -18,13 +18,13 @@ class HomeViewModel @Inject constructor(private val forecastRepository: Forecast
         const val timeout: Long = 400
     }
 
-    private var allForecastsResult: MutableLiveData<List<Forecast>> = MutableLiveData()
-    private var allForecastsError: MutableLiveData<String> = MutableLiveData()
-    private var allForecastsLoader: MutableLiveData<Boolean> = MutableLiveData()
+    var allForecastsResult: MutableLiveData<List<Forecast>> = MutableLiveData()
+    var allForecastsError: MutableLiveData<String> = MutableLiveData()
+    var allForecastsLoader: MutableLiveData<Boolean> = MutableLiveData()
 
-    private var forecastSearchResult: MutableLiveData<Forecast> = MutableLiveData()
-    private var forecastSearchError: MutableLiveData<String> = MutableLiveData()
-    private var forecastSearchLoader: MutableLiveData<Boolean> = MutableLiveData()
+    var forecastSearchResult: MutableLiveData<Forecast> = MutableLiveData()
+    var forecastSearchError: MutableLiveData<String> = MutableLiveData()
+    var forecastSearchLoader: MutableLiveData<Boolean> = MutableLiveData()
 
     private lateinit var disposableObserver: DisposableObserver<List<Forecast>>
     private var searchSubscription: Disposable? = null

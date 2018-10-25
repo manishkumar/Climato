@@ -3,4 +3,9 @@
     <string name="title_activity_maps">Map</string>
 
     <string name="forecast_loading_error">Error loading forecast data</string>
+
+    <string name="celsius">° C</string>
+    <string name="fahrenheit">° F</string>
+    <string name="humidity">Humidity: %1$d%%</string>
+    <string name="pressure">Pressure: %1$.1f hPa</string>
 </resources>

@@ -1,35 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="4dp"
     tools:context=".module.home.HomeActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Climato: Search for latest weather of your City."
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="City or Zipcode" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="Search"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvForecast"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:clipToPadding="false"
         android:paddingBottom="8dp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnAPI"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="API" />
-
-        <Button
-            android:id="@+id/btnDB"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DB" />
-    </LinearLayout>
-
 
     <ProgressBar
         android:id="@+id/pbLoadingIndicator"
@@ -46,6 +59,6 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="12dp"
         android:background="@color/colorPrimary"
-        android:src="@drawable/ic_launcher_foreground"
+        android:src="@drawable/common_google_signin_btn_icon_dark"
         android:textColor="@android:color/white" />
-</FrameLayout>
+</LinearLayout>

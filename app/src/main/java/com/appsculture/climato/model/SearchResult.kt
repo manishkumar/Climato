@@ -4,23 +4,23 @@ import com.google.gson.annotations.Expose
 
 
 data class SearchResult(
-    @Expose
-    var cod: String,
-    @Expose
-    var message: Float,
-    @Expose
-    var cnt: Int,
-    @Expose
-    var list: List<Forecast>,
-    @Expose
-    var city: City
+        @Expose
+        var cod: String,
+        @Expose
+        var message: String,
+        @Expose
+        var cnt: Int,
+        @Expose
+        var list: List<Forecast>,
+        @Expose
+        var city: City
 )
 
 data class City(
-    @Expose
-    var id: Int,
-    @Expose
-    var name: String,
-    @Expose
-    var country: String
+        @Expose
+        var id: Int,
+        @Expose
+        var name: String,
+        @Expose
+        var country: String
 )

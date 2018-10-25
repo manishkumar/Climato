@@ -31,17 +31,6 @@ data class Forecast(
     constructor() : this(0, "", null, null, null, 0, 0, null)
 }
 
-/*@Entity(
-    tableName = "weather",
-    foreignKeys = arrayOf(
-        ForeignKey(
-            entity = Forecast::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("id"),
-            onDelete = CASCADE
-        )
-    )
-)*/
 data class Weather(
     @PrimaryKey
     @ColumnInfo(name = "weather_id")
@@ -58,7 +47,6 @@ data class Weather(
 }
 
 
-//@Entity(tableName = "sys")
 data class Sys(
     @SerializedName("type")
     @Expose
@@ -79,7 +67,6 @@ data class Sys(
     constructor() : this(0, 0, 0.0, "", 0, 0)
 }
 
-//@Entity(tableName = "main")
 data class Main(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "main_id")
