@@ -15,13 +15,12 @@ import kotlinx.android.parcel.Parcelize
 data class Forecast(
     @PrimaryKey
     var id: Int?,
-    var name: String?,
-    var country: String?,
     @Ignore
     @SerializedName("weather")
     @Expose
     var weathers: List<Weather>?,
     var weather: Weather?,
+    var city: City?,
     @Expose
     var main: Main?,
     @Expose
@@ -32,7 +31,7 @@ data class Forecast(
     @Expose
     var sys: Sys?
 ) : Parcelable {
-    constructor() : this(0, "", "", null, null, null, 0, 0, null)
+    constructor() : this(0, null, null, null, null, 0, 0, null)
 }
 
 @Parcelize

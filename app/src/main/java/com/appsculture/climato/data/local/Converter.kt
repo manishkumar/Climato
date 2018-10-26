@@ -1,9 +1,7 @@
 package com.appsculture.climato.data.local
 
 import android.arch.persistence.room.TypeConverter
-import com.appsculture.climato.model.Main
-import com.appsculture.climato.model.Sys
-import com.appsculture.climato.model.Weather
+import com.appsculture.climato.model.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -36,6 +34,35 @@ class Converters {
         val type = object : TypeToken<Weather>() {}.type
         return gson.fromJson(value, type)
     }
+
+    @TypeConverter
+    fun fromCity(value: City): String {
+        val gson = Gson()
+        val type = object : TypeToken<City>() {}.type
+        return gson.toJson(value, type)
+    }
+
+    @TypeConverter
+    fun toCity(value: String): City {
+        val gson = Gson()
+        val type = object : TypeToken<City>() {}.type
+        return gson.fromJson(value, type)
+    }
+
+    @TypeConverter
+    fun fromCoordinate(value: Coordinate): String {
+        val gson = Gson()
+        val type = object : TypeToken<Coordinate>() {}.type
+        return gson.toJson(value, type)
+    }
+
+    @TypeConverter
+    fun toCoordinate(value: String): Coordinate {
+        val gson = Gson()
+        val type = object : TypeToken<Coordinate>() {}.type
+        return gson.fromJson(value, type)
+    }
+
 
     @TypeConverter
     fun fromSys(value: Sys): String {

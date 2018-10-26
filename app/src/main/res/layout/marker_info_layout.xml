@@ -11,39 +11,4 @@
         android:text="NAME"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
-    <TextView
-        android:id="@+id/cityDetailsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cityNameTextView"
-        android:layout_marginTop="8dp"
-        android:singleLine="false"
-        android:text="DETAILS" />
-
-    <TextView
-        android:id="@+id/minTempTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cityDetailsTextView"
-        android:layout_marginTop="8dp"
-        android:textColor="#c2185b" />
-
-    <TextView
-        android:id="@+id/maxTempTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/minTempTextView"
-        android:layout_marginTop="8dp"
-        android:text="FOOD"
-        android:textColor="#1976d2" />
-
-    <TextView
-        android:id="@+id/pressureTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/maxTempTextView"
-        android:layout_marginTop="8dp"
-        android:text="TRANSPORT"
-        android:textColor="#64dd17" />
-
 </RelativeLayout>

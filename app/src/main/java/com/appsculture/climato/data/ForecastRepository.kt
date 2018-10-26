@@ -30,8 +30,7 @@ class ForecastRepository @Inject constructor(
                     } else {
                         val forecast = it.list.first()
                         forecast.id = it.city.id
-                        forecast.name = it.city.name
-                        forecast.country = it.city.country
+                        forecast.city = it.city
                         forecast.weather = forecast.weathers?.first()
                         saveForecast(forecast)
                         emitter.onSuccess(forecast)

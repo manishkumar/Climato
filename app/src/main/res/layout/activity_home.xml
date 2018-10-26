@@ -30,7 +30,7 @@
             android:hint="@string/home.search.hint"
             android:textColor="@color/colorWhite"
             android:textColorHint="@color/colorWhite"
-            android:textSize="14sp" />
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnSearch"
@@ -39,7 +39,7 @@
             android:background="@null"
             android:text="@string/home.search"
             android:textColor="@color/colorWhite"
-            android:textSize="14sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
     <RelativeLayout

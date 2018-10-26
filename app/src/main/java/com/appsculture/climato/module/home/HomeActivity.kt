@@ -45,6 +45,10 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
         initViewModel()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+    }
     private fun initViews() {
         initRecyclerView()
         btnSearch.setOnClickListener(this)

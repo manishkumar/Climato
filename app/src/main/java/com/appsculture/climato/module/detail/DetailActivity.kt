@@ -32,8 +32,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        tvCity.text = forecast.name
-        tvCountry.text = forecast.country
+        tvCity.text = forecast.city?.name
+        tvCountry.text = forecast.city?.country
         tvCondition.text = forecast.weather?.main
         tvTempMax.text = formatter.prettyKelvinToCelsius(forecast.main?.tempMax)
         tvTempMin.text = formatter.prettyKelvinToCelsius(forecast.main?.tempMin)
