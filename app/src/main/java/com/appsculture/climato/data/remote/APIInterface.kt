@@ -11,8 +11,8 @@ interface APIInterface {
 
     @GET("forecast/")
     fun getWeatherData(
-            @Query(value = "q") query: String,
-            @Query(value = "appId") appID: String = APIConstants.apiKey
+        @Query(value = "q") query: String,
+        @Query(value = "appId") appID: String = APIConstants.apiKey
     ): Observable<SearchResult>
 
 }

@@ -15,19 +15,24 @@
         android:theme="@style/AppTheme">
         <activity android:name=".module.home.HomeActivity">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".module.map.MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".module.detail.DetailActivity"
+            android:label="@string/title_activity_detail" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity
-            android:name=".module.map.MapsActivity"
-            android:label="@string/title_activity_maps" />
     </application>
 
 </manifest>

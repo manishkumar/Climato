@@ -7,8 +7,8 @@ import android.content.Context
 import com.appsculture.climato.app.DBConstants
 import com.appsculture.climato.data.local.Database
 import com.appsculture.climato.data.local.ForecastDao
-import com.appsculture.climato.module.converters.TemperatureConverter
 import com.appsculture.climato.module.home.HomeViewModelFactory
+import com.appsculture.climato.utils.WeatherDataFormatter
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -30,9 +30,9 @@ class AppModule(val app: Application) {
     @Provides
     @Singleton
     fun provideForecastsDatabase(app: Application): Database =
-            Room.databaseBuilder(app, Database::class.java, DBConstants.name)
-                    .fallbackToDestructiveMigration()
-                    .build()
+        Room.databaseBuilder(app, Database::class.java, DBConstants.name)
+            .fallbackToDestructiveMigration()
+            .build()
 
     @Provides
     @Singleton
@@ -40,11 +40,13 @@ class AppModule(val app: Application) {
 
     @Provides
     @Singleton
-    fun provideHomeViewModelFactory(factory: HomeViewModelFactory): ViewModelProvider.Factory = factory
+    fun provideHomeViewModelFactory(factory: HomeViewModelFactory): ViewModelProvider.Factory =
+        factory
 
 
     @Provides
     @Singleton
-    fun provideTemperatureConverter(context: Context): TemperatureConverter = TemperatureConverter(context)
+    fun provideWeatherFormatter(context: Context): WeatherDataFormatter =
+        WeatherDataFormatter(context)
 
 }

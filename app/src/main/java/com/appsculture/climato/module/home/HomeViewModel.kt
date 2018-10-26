@@ -1,6 +1,5 @@
 package com.appsculture.climato.module.home
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.appsculture.climato.data.ForecastRepository
@@ -12,7 +11,8 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(private val forecastRepository: ForecastRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val forecastRepository: ForecastRepository) :
+    ViewModel() {
 
     companion object {
         const val timeout: Long = 400
@@ -20,26 +20,13 @@ class HomeViewModel @Inject constructor(private val forecastRepository: Forecast
 
     var allForecastsResult: MutableLiveData<List<Forecast>> = MutableLiveData()
     var allForecastsError: MutableLiveData<String> = MutableLiveData()
-    var allForecastsLoader: MutableLiveData<Boolean> = MutableLiveData()
 
     var forecastSearchResult: MutableLiveData<Forecast> = MutableLiveData()
     var forecastSearchError: MutableLiveData<String> = MutableLiveData()
-    var forecastSearchLoader: MutableLiveData<Boolean> = MutableLiveData()
 
     private lateinit var disposableObserver: DisposableObserver<List<Forecast>>
     private var searchSubscription: Disposable? = null
 
-    fun forecastsResult(): LiveData<List<Forecast>> {
-        return allForecastsResult
-    }
-
-    fun forecastsError(): LiveData<String> {
-        return allForecastsError
-    }
-
-    fun forecastsLoader(): LiveData<Boolean> {
-        return allForecastsLoader
-    }
 
     fun searchForecast(searchTerm: String) {
         searchSubscription = forecastRepository.getForecastFromApi(searchTerm)
@@ -47,10 +34,8 @@ class HomeViewModel @Inject constructor(private val forecastRepository: Forecast
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 forecastSearchResult.postValue(it)
-                forecastSearchLoader.postValue(false)
             }, {
                 forecastSearchError.postValue(it.message)
-                forecastSearchLoader.postValue(false)
             })
     }
 
@@ -61,12 +46,10 @@ class HomeViewModel @Inject constructor(private val forecastRepository: Forecast
 
             override fun onNext(forecasts: List<Forecast>) {
                 allForecastsResult.postValue(forecasts)
-                allForecastsLoader.postValue(false)
             }
 
             override fun onError(e: Throwable) {
                 allForecastsError.postValue(e.message)
-                allForecastsLoader.postValue(false)
             }
         }
 

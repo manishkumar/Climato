@@ -21,8 +21,11 @@ android {
     }
 }
 
-dependencies {
+androidExtensions {
+    experimental = true
+}
 
+dependencies {
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -69,9 +72,6 @@ dependencies {
 
     //Gson
     implementation "com.google.code.gson:gson:${rootProject.ext.gsonVersion}"
-
-    //
-    implementation "com.facebook.fresco:fresco:${rootProject.ext.frescoVersion}"
 
     // Tests
 

@@ -10,7 +10,7 @@ import io.reactivex.Single
 @Dao
 interface ForecastDao {
 
-    @Query("SELECT * FROM forecasts")
+    @Query("SELECT * FROM forecasts ORDER BY name")
     fun forecasts(): Single<List<Forecast>>
 
     @Query("SELECT * FROM forecasts WHERE id = :id LIMIT 1")

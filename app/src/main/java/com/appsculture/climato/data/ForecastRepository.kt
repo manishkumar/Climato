@@ -10,7 +10,10 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class ForecastRepository @Inject constructor(val apiInterface: APIInterface, val forecastDao: ForecastDao) {
+class ForecastRepository @Inject constructor(
+    val apiInterface: APIInterface,
+    val forecastDao: ForecastDao
+) {
     companion object {
         const val CITY_NOT_FOUND = "404"
     }
@@ -19,28 +22,29 @@ class ForecastRepository @Inject constructor(val apiInterface: APIInterface, val
         return Single.create {
             val emitter = it
             apiInterface.getWeatherData(searchTerm)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe({
-                        if (it.cod == CITY_NOT_FOUND) {
-                            emitter.onError(Throwable(it.message))
-                        } else {
-                            val forecast = it.list.first()
-                            forecast.id = it.city.id
-                            forecast.name = it.city.name
-                            forecast.weather = forecast.weathers?.first()
-                            saveForecast(forecast)
-                            emitter.onSuccess(forecast)
-                        }
-                    }, {
-                        emitter.onError(it)
-                    })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({
+                    if (it.cod == CITY_NOT_FOUND) {
+                        emitter.onError(Throwable(it.message))
+                    } else {
+                        val forecast = it.list.first()
+                        forecast.id = it.city.id
+                        forecast.name = it.city.name
+                        forecast.country = it.city.country
+                        forecast.weather = forecast.weathers?.first()
+                        saveForecast(forecast)
+                        emitter.onSuccess(forecast)
+                    }
+                }, {
+                    emitter.onError(it)
+                })
         }
     }
 
     fun getSavedForecasts(): Observable<List<Forecast>> {
         return forecastDao.forecasts()
-                .toObservable()
+            .toObservable()
     }
 
     fun getSavedForecast(id: Int): Single<Forecast> {
@@ -49,8 +53,8 @@ class ForecastRepository @Inject constructor(val apiInterface: APIInterface, val
 
     private fun saveForecast(forecast: Forecast) {
         Single.create<Unit> { forecastDao.insertForecast(forecast) }
-                .subscribeOn(Schedulers.io())
-                .subscribe()
+            .subscribeOn(Schedulers.io())
+            .subscribe()
 
     }
 

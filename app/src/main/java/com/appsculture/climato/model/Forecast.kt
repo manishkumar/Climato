@@ -4,15 +4,19 @@ import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
+import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 
 @Entity(tableName = "forecasts")
+@Parcelize
 data class Forecast(
     @PrimaryKey
     var id: Int?,
     var name: String?,
+    var country: String?,
     @Ignore
     @SerializedName("weather")
     @Expose
@@ -27,10 +31,11 @@ data class Forecast(
     var date: Long?,
     @Expose
     var sys: Sys?
-) {
-    constructor() : this(0, "", null, null, null, 0, 0, null)
+) : Parcelable {
+    constructor() : this(0, "", "", null, null, null, 0, 0, null)
 }
 
+@Parcelize
 data class Weather(
     @PrimaryKey
     @ColumnInfo(name = "weather_id")
@@ -42,11 +47,11 @@ data class Weather(
     var description: String?,
     @Expose
     var icon: String?
-) {
+) : Parcelable {
     constructor() : this(0, "", "", "")
 }
 
-
+@Parcelize
 data class Sys(
     @SerializedName("type")
     @Expose
@@ -63,10 +68,11 @@ data class Sys(
     var sunrise: Long?,
     @Expose
     var sunset: Long?
-) {
+) : Parcelable {
     constructor() : this(0, 0, 0.0, "", 0, 0)
 }
 
+@Parcelize
 data class Main(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "main_id")
@@ -84,7 +90,7 @@ data class Main(
     @SerializedName("temp_max")
     @Expose
     var tempMax: Double?
-) {
+) : Parcelable {
     constructor() : this(0, 0.0, 0.0, 0, 0.0, 0.0)
 }
 

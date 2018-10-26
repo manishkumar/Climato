@@ -40,7 +40,6 @@ ext {
     gsonVersion = "2.8.5"
     retrofitVersion = "2.3.0"
     //moshiConverterVersion = "2.3.0"
-    frescoVersion = "1.11.0"
 
     rxJavaAdapterVersion = "2.3.0"
     rxAndroidVersion = "2.0.2"
