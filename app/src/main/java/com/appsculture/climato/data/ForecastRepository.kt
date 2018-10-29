@@ -28,12 +28,10 @@ class ForecastRepository @Inject constructor(
                     if (it.cod == CITY_NOT_FOUND) {
                         emitter.onError(Throwable(it.message))
                     } else {
-                        val forecast = it.list.first()
-                        forecast.id = it.city.id
-                        forecast.city = it.city
-                        forecast.weather = forecast.weathers?.first()
-                        saveForecast(forecast)
-                        emitter.onSuccess(forecast)
+                        val weather = it.weathers?.first()
+                        it.weather = weather
+                        saveForecast(it)
+                        emitter.onSuccess(it)
                     }
                 }, {
                     emitter.onError(it)

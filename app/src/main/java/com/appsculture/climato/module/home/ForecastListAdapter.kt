@@ -41,7 +41,7 @@ class ForecastListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val forecast = forecasts[position]
-        holder.name.text = forecast.city?.name
+        holder.name.text = forecast.name
         holder.description.text = forecast.weather?.main
         holder.pressure.text =
                 String.format(
