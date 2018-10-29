@@ -55,21 +55,23 @@ class ForecastListAdapter(
                 )
         holder.temperature.text =
                 formatter.prettyKelvinToCelsius(forecast.main?.temperature)
-        val weatherFont =
-            Typeface.createFromAsset(holder.view.context.getAssets(), Constants.fontPath)
-        holder.icon.setTypeface(weatherFont)
-        forecast.weather?.id.let {
-            holder.icon.setText(formatter.weatherIcon(it!!, Calendar.HOUR_OF_DAY))
-        }
         holder.view.setOnClickListener {
             listener.clicked(forecast)
         }
+
+        val id = forecast.weather?.id.let { it!! }
+        val date = forecast.date.let { it!! }
+        val weatherFont =
+            Typeface.createFromAsset(holder.view.context.getAssets(), Constants.fontPath)
+        holder.icon.setTypeface(weatherFont)
+        holder.icon.setText(formatter.weatherIcon(id, date))
+
     }
 
     fun addForecastToList(forecast: List<Forecast>) {
-        val initPosition = forecasts.size
+        forecasts.clear()
         forecasts.addAll(forecast)
-        notifyItemRangeInserted(initPosition, forecasts.size)
+        notifyDataSetChanged()
     }
 
     interface ItemClickListener {

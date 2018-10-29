@@ -12,6 +12,8 @@
     <string name="home.search.hint">Enter city or ZipCode</string>
     <string name="home.list.title">Recent searches</string>
 
+    <string name="menu.settings">Settings</string>
+
     <string name="celsius">° C</string>
     <string name="fahrenheit">° F</string>
     <string name="humidity">%1$d%%</string>
@@ -35,4 +37,14 @@
     <string name="weather_snowy" translatable="false">&#xf01b;</string>
     <string name="weather_thunder" translatable="false">&#xf01e;</string>
     <string name="weather_drizzle" translatable="false">&#xf01c;</string>
+    <string name="title_activity_settings">Settings</string>
+
+
+    <string name="setting_unit_Celsuis">Celsius</string>
+    <string name="setting_unit_Fahrenheit">Fahrenheit</string>
+    <string name="setting_unit_Kelvin">Kelvin</string>
+
+    <string name="settings_title_units">Unit preferences</string>
+    <string name="setting_tempUnits">Temperature units</string>
+    <string name="setting_refreshInterval">Background refresh interval</string>
 </resources>

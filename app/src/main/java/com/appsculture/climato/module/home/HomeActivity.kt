@@ -5,15 +5,20 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.appsculture.climato.R
 import com.appsculture.climato.model.Forecast
 import com.appsculture.climato.module.detail.DetailActivity
 import com.appsculture.climato.module.map.MapsActivity
+import com.appsculture.climato.module.settings.SettingsActivity
 import com.appsculture.climato.utils.WeatherDataFormatter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_home.*
@@ -45,11 +50,49 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
         initViewModel()
     }
 
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.loadSavedForecasts()
+    }
+
     private fun initViews() {
         initRecyclerView()
+        configureNavigationDrawer()
+        configureToolbar()
         btnSearch.setOnClickListener(this)
         fabMapView.setOnClickListener(this)
         progressDialog = ProgressDialog(this)
+    }
+
+    private fun configureNavigationDrawer() {
+        navigation.setNavigationItemSelectedListener(NavigationView.OnNavigationItemSelectedListener { menuItem ->
+            drawer_layout.closeDrawers();
+            when (menuItem.itemId) {
+                R.id.item_settings -> {
+                    showSettings()
+                    true
+                }
+            }
+
+            return@OnNavigationItemSelectedListener false
+        })
+    }
+
+    private fun configureToolbar() {
+        val toolbar = findViewById<View>(R.id.toolbar) as Toolbar
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        android.R.id.home -> {
+            drawer_layout.openDrawer(GravityCompat.START)
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
     }
 
     private fun initRecyclerView() {
@@ -97,8 +140,6 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
             ).show()
 
         })
-
-        homeViewModel.loadSavedForecasts()
     }
 
     override fun onClick(v: View?) {
@@ -119,6 +160,11 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
     private fun showWeatherDetails(forecast: Forecast) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra(DetailActivity.FORECAST, forecast)
+        startActivity(intent)
+    }
+
+    private fun showSettings() {
+        val intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)
     }
 
