@@ -70,4 +70,5 @@ class WeatherDataFormatter @Inject constructor(private val context: Context) {
         return icon
     }
 
+
 }
