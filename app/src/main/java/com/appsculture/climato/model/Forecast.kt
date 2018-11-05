@@ -108,9 +108,9 @@ data class Main(
 @Parcelize
 data class Coordinate(
     @Expose
-    var lat: Double?,
+    var lat: Double,
     @Expose
-    var lon: Double?
+    var lon: Double
 ) : Parcelable
 
 
