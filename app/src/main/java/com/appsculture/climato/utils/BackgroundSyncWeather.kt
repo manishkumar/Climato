@@ -10,11 +10,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
-class BackgroundSyncWeather @Inject constructor(private val forecastRepository: ForecastRepository) :
-    Worker() {
+class BackgroundSyncWeather : Worker() {
 
+    private lateinit var forecastRepository: ForecastRepository
     private lateinit var disposableObserver: DisposableObserver<List<Forecast>>
     var allForecastsResult: MutableLiveData<List<Forecast>> = MutableLiveData()
     var allForecastsError: MutableLiveData<String> = MutableLiveData()
@@ -22,7 +21,6 @@ class BackgroundSyncWeather @Inject constructor(private val forecastRepository: 
     override fun doWork(): WorkerResult {
         Log.d("Jeetu", "in side doWork()")
         val resolver = applicationContext.contentResolver
-
         try {
             getForeCastFromRepository()
             return WorkerResult.SUCCESS

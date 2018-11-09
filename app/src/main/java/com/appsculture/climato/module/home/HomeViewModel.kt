@@ -73,12 +73,13 @@ class HomeViewModel @Inject constructor(private val forecastRepository: Forecast
         if (null != disposableObserver && !disposableObserver.isDisposed) disposableObserver.dispose()
     }
 
-    fun backgroundSync() {
-        val constraints = Constraints.Builder().setRequiresCharging(true)
+    fun backgroundSync(interval: Long) {
+        val constraints = Constraints.Builder().setRequiresCharging(false)
             .setRequiredNetworkType(NetworkType.CONNECTED).build()
         val task =
-            PeriodicWorkRequest.Builder(BackgroundSyncWeather::class.java, 15, TimeUnit.MINUTES)
+            PeriodicWorkRequest.Builder(BackgroundSyncWeather::class.java, interval, TimeUnit.MINUTES)
                 .setConstraints(constraints).build()
+
         workManager.enqueue(task)
     }
 

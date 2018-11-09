@@ -15,21 +15,17 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.work.Constraints
-import androidx.work.NetworkType
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkManager.*
 import com.appsculture.climato.R
+import com.appsculture.climato.app.ClimatoApplication
+import com.appsculture.climato.app.Constants
 import com.appsculture.climato.model.Forecast
 import com.appsculture.climato.module.detail.DetailActivity
 import com.appsculture.climato.module.map.MapsActivity
 import com.appsculture.climato.module.settings.SettingsActivity
-import com.appsculture.climato.utils.BackgroundSyncWeather
 import com.appsculture.climato.utils.WeatherDataFormatter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_home.*
 import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity(), View.OnClickListener,
@@ -56,7 +52,11 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
         initViews()
         initViewModel()
 
-        homeViewModel.backgroundSync()
+        val interval =
+            ClimatoApplication.preferenceHelper.defaultPref()
+                .getString(Constants.refreshIntervalKey, Constants.defaultInterval)
+
+        homeViewModel.backgroundSync(interval.toLong())
         getWorkerStatus()
     }
 
@@ -68,10 +68,8 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
             val workStatus = workStatuses.first()
             val finished = workStatus.state.isFinished
             if (finished) {
-                // show work finish.
                 Log.d("Jeetu ", "work finish")
             } else {
-                // so work in progress
                 Log.d("Jeetu ", "work in progress")
             }
 
@@ -211,23 +209,4 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
     override fun clicked(item: Forecast) {
         showWeatherDetails(item)
     }
-
-
-//
-//    private fun backgroundSync() {
-//        val constraints = Constraints.Builder().setRequiresCharging(true)
-//            .setRequiredNetworkType(NetworkType.CONNECTED).build()
-//        val task =
-//            PeriodicWorkRequest.Builder(BackgroundSyncWeather::class.java, 15, TimeUnit.MINUTES)
-//                .setConstraints(constraints).build()
-//        val workManager = getInstance()
-//        workManager.enqueue(task)
-//
-//        workManager.getStatusById(task.id).observe(this, Observer {
-//            if (it != null) {
-//                Log.d("Jeetu ", "Status changed to : ${it.state.isFinished}")
-//            }
-//        })
-//    }
-
 }
