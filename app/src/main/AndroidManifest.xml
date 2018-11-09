@@ -36,6 +36,7 @@
 
         <activity
             android:name=".module.settings.SettingsActivity"
+            android:theme="@style/ToolbarTheme"
             android:label="@string/title_activity_settings" />
 
         <!--<receiver android:name=".BootBroadcastReceiver">-->
