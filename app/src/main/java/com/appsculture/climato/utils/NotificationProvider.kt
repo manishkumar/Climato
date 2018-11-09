@@ -23,6 +23,17 @@ class NotificationProvider @Inject constructor(private val context: Context) {
 
         val notificationTitle = forecast.name
         val notificationText = forecast.weather?.main
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelName = context.getString(R.string.channel_name)
+            val descriptionText = context.getString(R.string.channel_description)
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, channelName, importance)
+            channel.description = descriptionText
+            notificationManager.createNotificationChannel(channel)
+        }
 
         val notificationBuilder = NotificationCompat.Builder(context)
             .setColor(ContextCompat.getColor(context, R.color.colorPrimary))
@@ -30,6 +41,7 @@ class NotificationProvider @Inject constructor(private val context: Context) {
             .setContentTitle(notificationTitle)
             .setContentText(notificationText)
             .setAutoCancel(true)
+            .setChannelId(CHANNEL_ID)
 
         val detailIntentForToday = Intent(context, DetailActivity::class.java)
 
@@ -39,19 +51,6 @@ class NotificationProvider @Inject constructor(private val context: Context) {
             .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
 
         notificationBuilder.setContentIntent(resultPendingIntent)
-
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channelName = context.getString(R.string.channel_name)
-            val descriptionText = context.getString(R.string.channel_description)
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val mChannel = NotificationChannel(CHANNEL_ID, channelName, importance)
-            mChannel.description = descriptionText
-            notificationManager.createNotificationChannel(mChannel)
-        }
-
         notificationManager.notify(WEATHER_NOTIFICATION_ID, notificationBuilder.build())
     }
 }
