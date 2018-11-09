@@ -19,14 +19,12 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class SyncWorker(context: Context, workerParameters: WorkerParameters) : Worker(context, workerParameters) {
+class WeatherSyncWorker(context: Context, workerParameters: WorkerParameters) : Worker(context, workerParameters) {
 
     @Inject
     lateinit var forecastRepository: ForecastRepository
 
     private lateinit var disposableObserver: DisposableObserver<List<Forecast>>
-    var allForecastsResult: MutableLiveData<List<Forecast>> = MutableLiveData()
-    var allForecastsError: MutableLiveData<String> = MutableLiveData()
 
     override fun doWork(): Result {
         if(applicationContext is ClimatoApplication){
@@ -37,25 +35,26 @@ class SyncWorker(context: Context, workerParameters: WorkerParameters) : Worker(
         }
 
         try {
-            getForeCastFromRepository()
+            syncForecasts()
             return Result.SUCCESS
         } catch (t: Throwable) {
             return Result.FAILURE
         }
     }
 
-    private fun getForeCastFromRepository() {
+    private fun syncForecasts() {
         disposableObserver = object : DisposableObserver<List<Forecast>>() {
             override fun onComplete() {
             }
 
             override fun onNext(forecasts: List<Forecast>) {
-                allForecastsResult.postValue(forecasts)
-                Log.d("Jeetu", "work is done ${allForecastsResult.value}")
+                forecasts.forEach {
+                    forecastRepository.getForecastFromApi(it.name!!)
+                }
             }
 
             override fun onError(e: Throwable) {
-                allForecastsError.postValue(e.message)
+                TODO("not implemented")
             }
         }
         forecastRepository.let {
