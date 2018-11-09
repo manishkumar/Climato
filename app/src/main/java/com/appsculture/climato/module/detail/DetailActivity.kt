@@ -34,11 +34,11 @@ class DetailActivity : AppCompatActivity() {
         tvCity.text = forecast.name
         tvCountry.text = forecast.sys?.country
         tvCondition.text = forecast.weather?.main
-        tvTempMax.text = formatter.prettyKelvinToCelsius(forecast.main?.tempMax)
-        tvTempMin.text = formatter.prettyKelvinToCelsius(forecast.main?.tempMin)
+        tvTempMax.text = formatter.convertTemperature(forecast.main?.tempMax)
+        tvTempMin.text = formatter.convertTemperature(forecast.main?.tempMin)
         tvHumidity.text = formatter.prettyHumidity(forecast.main?.humidity)
         tvPressure.text = formatter.prettyPressure(forecast.main?.pressure)
-        tvTemperature.text = formatter.prettyKelvinToCelsius(forecast.main?.temperature)
+        tvTemperature.text = formatter.convertTemperature(forecast.main?.temperature)
 
         val id = forecast.weather?.id.let { it!! }
         val date = forecast.date.let { it!! }
