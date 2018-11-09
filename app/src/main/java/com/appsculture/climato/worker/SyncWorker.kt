@@ -1,4 +1,4 @@
-package com.appsculture.climato.utils
+package com.appsculture.climato.worker
 
 import android.arch.lifecycle.MutableLiveData
 import android.content.Context
@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class BackgroundSyncWeather(context: Context, workerParameters: WorkerParameters) : Worker(context, workerParameters) {
+class SyncWorker(context: Context, workerParameters: WorkerParameters) : Worker(context, workerParameters) {
 
     @Inject
     lateinit var forecastRepository: ForecastRepository

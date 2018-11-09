@@ -7,7 +7,7 @@ import androidx.work.*
 import com.appsculture.climato.app.Constants.Companion.TAG_OUTPUT
 import com.appsculture.climato.data.ForecastRepository
 import com.appsculture.climato.model.Forecast
-import com.appsculture.climato.utils.BackgroundSyncWeather
+import com.appsculture.climato.worker.SyncWorker
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
@@ -80,7 +80,7 @@ class HomeViewModel @Inject constructor(private val forecastRepository: Forecast
             .setRequiredNetworkType(NetworkType.CONNECTED).build()
         val task =
             PeriodicWorkRequest.Builder(
-                BackgroundSyncWeather::class.java,
+                SyncWorker::class.java,
                 interval,
                 TimeUnit.MINUTES
             ).setConstraints(constraints).build()
