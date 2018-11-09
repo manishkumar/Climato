@@ -32,7 +32,7 @@ class BackgroundSyncWeather(context: Context, workerParameters: WorkerParameters
             DaggerAppComponent.builder()
                 .appModule(AppModule(applicationContext as ClimatoApplication))
                 .aPIModule(APIModule(APIConstants.baseUrl))
-                .build().inject(applicationContext as ClimatoApplication)
+                .build().inject(this)
         }
         Log.d("Jeetu", "in side doWork()")
         try {
