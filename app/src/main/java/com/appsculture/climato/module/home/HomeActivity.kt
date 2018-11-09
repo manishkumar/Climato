@@ -11,13 +11,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.appsculture.climato.R
-import com.appsculture.climato.app.ClimatoApplication
-import com.appsculture.climato.app.Constants
 import com.appsculture.climato.model.Forecast
 import com.appsculture.climato.module.detail.DetailActivity
 import com.appsculture.climato.module.map.MapsActivity
@@ -51,33 +48,12 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
 
         initViews()
         initViewModel()
-
-        val interval = ClimatoApplication.preferenceHelper.defaultPref()
-            .getString(Constants.refreshIntervalKey, Constants.defaultInterval)
-
-        homeViewModel.backgroundSync(interval.toLong())
-        getWorkerStatus()
-    }
-
-    private fun getWorkerStatus() {
-        homeViewModel.getOutputStatus().observe(this, Observer { workStatuses ->
-            if (workStatuses == null || workStatuses.isEmpty()) {
-                return@Observer
-            }
-            val workStatus = workStatuses.first()
-            val finished = workStatus.state.isFinished
-            if (finished) {
-                Log.d("Jeetu ", "work finish")
-            } else {
-                Log.d("Jeetu ", "work in progress")
-            }
-
-        })
     }
 
     override fun onResume() {
         super.onResume()
         homeViewModel.loadSavedForecasts()
+        homeViewModel.startSync()
     }
 
     private fun initViews() {

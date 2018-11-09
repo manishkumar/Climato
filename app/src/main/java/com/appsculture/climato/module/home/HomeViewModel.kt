@@ -1,15 +1,12 @@
 package com.appsculture.climato.module.home
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import androidx.work.*
-import com.appsculture.climato.app.ClimatoApplication
 import com.appsculture.climato.app.Constants
-import com.appsculture.climato.app.Constants.Companion.TAG_OUTPUT
 import com.appsculture.climato.data.ForecastRepository
+import com.appsculture.climato.data.local.prefs.PreferenceHelper
 import com.appsculture.climato.model.Forecast
-import com.appsculture.climato.utils.BackgroundSyncWeather
+import com.appsculture.climato.worker.WeatherSync
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableObserver
@@ -17,7 +14,11 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(private val forecastRepository: ForecastRepository) :
+class HomeViewModel @Inject constructor(
+    private val forecastRepository: ForecastRepository,
+    private val weatherSync: WeatherSync,
+    private val preferenceHelper: PreferenceHelper
+) :
     ViewModel() {
 
     companion object {
@@ -33,12 +34,11 @@ class HomeViewModel @Inject constructor(private val forecastRepository: Forecast
     private lateinit var disposableObserver: DisposableObserver<List<Forecast>>
     private var searchSubscription: Disposable? = null
 
-    private var workManager: WorkManager = WorkManager.getInstance()
-    private var savedWorkStatus: LiveData<List<WorkStatus>> =
-        workManager.getStatusesForUniqueWorkLiveData(
-            TAG_OUTPUT
-        )
-
+    fun startSync() {
+        val interval = preferenceHelper.defaultPref()
+            .getString(Constants.refreshIntervalKey, Constants.defaultInterval)
+        weatherSync.start(interval.toLong())
+    }
 
     fun searchForecast(searchTerm: String) {
         searchSubscription = forecastRepository.getForecastFromApi(searchTerm)
@@ -75,23 +75,6 @@ class HomeViewModel @Inject constructor(private val forecastRepository: Forecast
     fun disposeElements() {
         searchSubscription?.dispose()
         if (null != disposableObserver && !disposableObserver.isDisposed) disposableObserver.dispose()
-    }
-
-    fun backgroundSync(interval: Long) {
-        val constraints = Constraints.Builder().setRequiresCharging(false)
-            .setRequiredNetworkType(NetworkType.CONNECTED).build()
-        val task =
-            PeriodicWorkRequest.Builder(
-                BackgroundSyncWeather::class.java,
-                interval,
-                TimeUnit.MINUTES
-            )
-                .setConstraints(constraints).build()
-        workManager.enqueue(task)
-    }
-
-    fun getOutputStatus(): LiveData<List<WorkStatus>> {
-        return savedWorkStatus
     }
 
 }
