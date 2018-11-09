@@ -13,6 +13,7 @@ import com.appsculture.climato.data.local.Database
 import com.appsculture.climato.data.local.ForecastDao
 import com.appsculture.climato.data.local.prefs.PreferenceHelper
 import com.appsculture.climato.module.home.HomeViewModelFactory
+import com.appsculture.climato.utils.NotificationProvider
 import com.appsculture.climato.utils.WeatherDataFormatter
 import com.appsculture.climato.worker.WeatherSync
 import dagger.Module
@@ -78,6 +79,12 @@ class AppModule(val app: Application) {
     @Singleton
     fun providePreferenceHelper(context: Context): PreferenceHelper {
         return PreferenceHelper(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNotificationProvider(context: Context): NotificationProvider {
+        return NotificationProvider(context)
     }
 
 }

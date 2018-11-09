@@ -19,6 +19,7 @@ import com.appsculture.climato.model.Forecast
 import com.appsculture.climato.module.detail.DetailActivity
 import com.appsculture.climato.module.map.MapsActivity
 import com.appsculture.climato.module.settings.SettingsActivity
+import com.appsculture.climato.utils.NotificationProvider
 import com.appsculture.climato.utils.WeatherDataFormatter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_home.*
@@ -33,6 +34,9 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
 
     @Inject
     lateinit var formatter: WeatherDataFormatter
+
+    @Inject
+    lateinit var notificationProvider: NotificationProvider
 
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var recyclerView: RecyclerView
@@ -110,6 +114,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
         homeViewModel.allForecastsResult.observe(this, Observer<List<Forecast>> {
             hideLoader()
             it?.let {
+                notificationProvider.showNotification(it.first())
                 adapter.addForecastToList(it)
                 recyclerView.adapter = adapter
             }
