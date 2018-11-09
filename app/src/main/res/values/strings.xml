@@ -50,4 +50,7 @@
     <string name="unit_key">unit</string>
     <string name="unit_imperial_value">imperial</string>
     <string name="unit_metric_value">metric</string>
+
+    <string name="channel_name">Weather Notification Channel</string>
+    <string name="channel_description">Weather</string>
 </resources>
