@@ -1,33 +1,33 @@
 <resources>
-    <string name="app_name">Climato</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="title_activity_detail">Detail</string>
+    <string name="app_name" translatable="false">Climato</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
+    <string name="title_activity_detail" translatable="false">Detail</string>
 
-    <string name="forecast_loading_error">Error loading forecast data</string>
+    <string name="forecast_loading_error" translatable="false">Error loading forecast data</string>
 
-    <string name="searching">Searching</string>
+    <string name="searching" translatable="false">Searching</string>
 
-    <string name="home.title">Search for weather details of your area.</string>
-    <string name="home.search">Search</string>
-    <string name="home.search.hint">Enter city or ZipCode</string>
-    <string name="home.list.title">Recent searches</string>
+    <string name="home.title" translatable="false">Search for weather details of your area.</string>
+    <string name="home.search" translatable="false">Search</string>
+    <string name="home.search.hint" translatable="false">Enter city or ZipCode</string>
+    <string name="home.list.title" translatable="false">Recent searches</string>
 
-    <string name="menu.settings">Settings</string>
+    <string name="menu.settings" translatable="false">Settings</string>
 
-    <string name="celsius">° C</string>
-    <string name="fahrenheit">° F</string>
-    <string name="humidity">%1$d%%</string>
-    <string name="pressure">%1$.1f hPa</string>
-    <string name="humidity_value">Humidity: %1$d%%</string>
-    <string name="pressure_value">Pressure: %1$.1f hPa</string>
+    <string name="celsius" translatable="false">° C</string>
+    <string name="fahrenheit" translatable="false">° F</string>
+    <string name="humidity" translatable="false">%1$d%%</string>
+    <string name="pressure" translatable="false">%1$.1f hPa</string>
+    <string name="humidity_value" translatable="false">Humidity: %1$d%%</string>
+    <string name="pressure_value" translatable="false">Pressure: %1$.1f hPa</string>
 
 
-    <string name="detail.city.label">City</string>
-    <string name="detail.condition.label">Forecast</string>
-    <string name="detail.max.label">Max temp</string>
-    <string name="detail.min.label">Min temp</string>
-    <string name="detail.pressure.label">Pressure</string>
-    <string name="detail.humidity.label">Humidity</string>
+    <string name="detail.city.label" translatable="false">City</string>
+    <string name="detail.condition.label" translatable="false">Forecast</string>
+    <string name="detail.max.label" translatable="false">Max temp</string>
+    <string name="detail.min.label" translatable="false">Min temp</string>
+    <string name="detail.pressure.label" translatable="false">Pressure</string>
+    <string name="detail.humidity.label" translatable="false">Humidity</string>
 
     <string name="weather_sunny" translatable="false">&#xf00d;</string>
     <string name="weather_clear_night" translatable="false">&#xf02e;</string>
@@ -37,14 +37,17 @@
     <string name="weather_snowy" translatable="false">&#xf01b;</string>
     <string name="weather_thunder" translatable="false">&#xf01e;</string>
     <string name="weather_drizzle" translatable="false">&#xf01c;</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_settings" translatable="false">Settings</string>
 
 
-    <string name="setting_unit_Celsuis">Celsius</string>
-    <string name="setting_unit_Fahrenheit">Fahrenheit</string>
-    <string name="setting_unit_Kelvin">Kelvin</string>
+    <string name="setting_unit_metric" translatable="false">Metric</string>
+    <string name="setting_unit_imperial" translatable="false">Imperial</string>
 
-    <string name="settings_title_units">Unit preferences</string>
-    <string name="setting_tempUnits">Temperature units</string>
-    <string name="setting_refreshInterval">Background refresh interval</string>
+    <string name="settings_title_units" translatable="false">Preferences</string>
+    <string name="setting_units" translatable="false">Unit System</string>
+    <string name="setting_refreshInterval" translatable="false">Background refresh interval</string>
+
+    <string name="unit_key">unit</string>
+    <string name="unit_imperial_value">imperial</string>
+    <string name="unit_metric_value">metric</string>
 </resources>

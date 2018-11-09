@@ -54,7 +54,7 @@ class ForecastListAdapter(
                     forecast.main?.humidity
                 )
         holder.temperature.text =
-                formatter.prettyKelvinToCelsius(forecast.main?.temperature)
+                formatter.convertTemperature(forecast.main?.temperature)
         holder.view.setOnClickListener {
             listener.clicked(forecast)
         }

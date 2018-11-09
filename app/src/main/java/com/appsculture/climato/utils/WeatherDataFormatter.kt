@@ -1,13 +1,38 @@
 package com.appsculture.climato.utils
 
 import android.content.Context
-import android.net.Uri
+import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import com.appsculture.climato.R
-import com.appsculture.climato.app.APIConstants
 import java.util.*
 import javax.inject.Inject
 
-class WeatherDataFormatter @Inject constructor(private val context: Context) {
+class WeatherDataFormatter {
+
+    private val context: Context
+    private val sharedPreferences: SharedPreferences
+
+    @Inject
+    constructor(context: Context) {
+        this.context = context
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    }
+
+    fun convertTemperature(temperature: Double?): String {
+
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val unit = context.getString(R.string.unit_key)
+        val metric = context.getString(R.string.unit_metric_value)
+        val imperial = context.getString(R.string.unit_imperial_value)
+
+        if (sharedPreferences.getString(unit, metric) == metric) {
+            return prettyKelvinToCelsius(temperature)
+        } else if (sharedPreferences.getString(unit, metric) == imperial) {
+            return prettyKelvinToFahrenheit(temperature)
+        } else {
+            return temperature.toString()
+        }
+    }
 
     fun kelvinToCelsius(temperature: Double?): Double {
         val temperature = temperature.let { it!! }
@@ -34,14 +59,8 @@ class WeatherDataFormatter @Inject constructor(private val context: Context) {
     fun prettyPressure(pressure: Double?): String {
         return String.format(context.getString(R.string.pressure), pressure)
     }
-
     fun prettyHumidity(humidity: Int?): String {
         return String.format(context.getString(R.string.humidity), humidity)
-    }
-
-    fun iconUrl(icon: String?): Uri {
-        val url = APIConstants.iconUrl + icon + APIConstants.iconExtension
-        return Uri.parse(url)
     }
 
     fun weatherIcon(actualId: Int, date: Long): String {
