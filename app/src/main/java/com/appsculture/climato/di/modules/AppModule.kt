@@ -63,7 +63,7 @@ class AppModule(val app: Application) {
 
     @Provides
     fun provideWorkManagerStatus(workManager: WorkManager): LiveData<List<WorkStatus>> {
-        return workManager.getStatusesForUniqueWorkLiveData(Constants.TAG_OUTPUT)
+        return workManager.getStatusesForUniqueWorkLiveData(Constants.WORKER_TAG)
     }
 
     @Provides
