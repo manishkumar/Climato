@@ -25,6 +25,4 @@ class ClimatoApplication : Application(), HasActivityInjector {
     }
 
     override fun activityInjector(): AndroidInjector<Activity> = activityInjector
-
-
 }

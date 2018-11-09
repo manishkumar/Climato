@@ -53,6 +53,7 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
     override fun onResume() {
         super.onResume()
         homeViewModel.loadSavedForecasts()
+        homeViewModel.startSync()
     }
 
     private fun initViews() {
@@ -183,5 +184,4 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
     override fun clicked(item: Forecast) {
         showWeatherDetails(item)
     }
-
 }

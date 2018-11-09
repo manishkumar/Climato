@@ -15,7 +15,7 @@
             android:defaultValue="1"
             android:entries="@array/refreshIntervals"
             android:entryValues="@array/refreshIntervalsValues"
-            android:key="refreshInterval"
+            android:key="refresh_interval"
             android:layout="@layout/pref_item"
             android:title="@string/setting_refreshInterval" />
 

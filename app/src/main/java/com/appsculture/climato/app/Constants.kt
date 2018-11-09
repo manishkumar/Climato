@@ -18,5 +18,8 @@ class DBConstants {
 class Constants {
     companion object {
         const val fontPath = "fonts/weather.ttf"
+        internal const val TAG_OUTPUT = "OUTPUT"
+        const val refreshIntervalKey = "refresh_interval"
+        const val defaultInterval = "15"
     }
 }

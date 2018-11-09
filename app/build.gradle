@@ -74,6 +74,9 @@ dependencies {
     //Gson
     implementation "com.google.code.gson:gson:${rootProject.ext.gsonVersion}"
 
+    // WorkManager
+    implementation "android.arch.work:work-runtime:${rootProject.ext.workVersion}"
+
     // Tests
 
     testImplementation 'junit:junit:4.12'
