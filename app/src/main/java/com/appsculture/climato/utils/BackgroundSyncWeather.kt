@@ -23,18 +23,19 @@ class BackgroundSyncWeather(context: Context, workerParameters: WorkerParameters
 
     @Inject
     lateinit var forecastRepository: ForecastRepository
+
     private lateinit var disposableObserver: DisposableObserver<List<Forecast>>
     var allForecastsResult: MutableLiveData<List<Forecast>> = MutableLiveData()
     var allForecastsError: MutableLiveData<String> = MutableLiveData()
 
     override fun doWork(): Result {
-        if (applicationContext is ClimatoApplication) {
+        if(applicationContext is ClimatoApplication){
             DaggerAppComponent.builder()
                 .appModule(AppModule(applicationContext as ClimatoApplication))
                 .aPIModule(APIModule(APIConstants.baseUrl))
                 .build().inject(this)
         }
-        Log.d("Jeetu", "in side doWork()")
+
         try {
             getForeCastFromRepository()
             return Result.SUCCESS

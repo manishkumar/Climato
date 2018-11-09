@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="temperatureUnits">
-        <item name="C">@string/setting_unit_Celsuis</item>
-        <item name="F">@string/setting_unit_Fahrenheit</item>
-        <item name="K">@string/setting_unit_Kelvin</item>
+    <string-array name="unitSystem">
+        <item name="metric">@string/setting_unit_metric</item>
+        <item name="imperial">@string/setting_unit_imperial</item>
     </string-array>
-    <string-array name="temperatureUnitsValues">
-        <item name="C">°C</item>
-        <item name="F">°F</item>
-        <item name="K">K</item>
+    <string-array name="unitSystemValues">
+        <item name="metric">metric</item>
+        <item name="imperial">imperial</item>
     </string-array>
 
     <string-array name="refreshIntervals">

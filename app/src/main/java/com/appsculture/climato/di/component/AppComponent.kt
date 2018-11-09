@@ -18,5 +18,7 @@ import javax.inject.Singleton
 )
 interface AppComponent {
     fun inject(app: ClimatoApplication)
-    fun inject(syncWeather: BackgroundSyncWeather)
+
+    fun inject(syncWorker: BackgroundSyncWeather)
+
 }
