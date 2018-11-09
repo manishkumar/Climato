@@ -52,7 +52,7 @@ ext {
     testRunnerVersion = "1.0.1"
     testEspressoVersion = "3.0.1"
 
-    rootProject.ext.workVersion = "1.0.0-alpha10"
+    workVersion = "1.0.0-alpha10"
 }
 
 task clean(type: Delete) {
