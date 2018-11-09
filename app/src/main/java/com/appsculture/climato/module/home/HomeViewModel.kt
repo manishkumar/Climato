@@ -4,6 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import androidx.work.*
+import com.appsculture.climato.app.ClimatoApplication
+import com.appsculture.climato.app.Constants
 import com.appsculture.climato.app.Constants.Companion.TAG_OUTPUT
 import com.appsculture.climato.data.ForecastRepository
 import com.appsculture.climato.model.Forecast
@@ -33,7 +35,9 @@ class HomeViewModel @Inject constructor(private val forecastRepository: Forecast
 
     private var workManager: WorkManager = WorkManager.getInstance()
     private var savedWorkStatus: LiveData<List<WorkStatus>> =
-        workManager.getStatusesByTag(TAG_OUTPUT)
+        workManager.getStatusesForUniqueWorkLiveData(
+            TAG_OUTPUT
+        )
 
 
     fun searchForecast(searchTerm: String) {
@@ -77,9 +81,12 @@ class HomeViewModel @Inject constructor(private val forecastRepository: Forecast
         val constraints = Constraints.Builder().setRequiresCharging(false)
             .setRequiredNetworkType(NetworkType.CONNECTED).build()
         val task =
-            PeriodicWorkRequest.Builder(BackgroundSyncWeather::class.java, interval, TimeUnit.MINUTES)
+            PeriodicWorkRequest.Builder(
+                BackgroundSyncWeather::class.java,
+                interval,
+                TimeUnit.MINUTES
+            )
                 .setConstraints(constraints).build()
-
         workManager.enqueue(task)
     }
 

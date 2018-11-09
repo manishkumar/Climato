@@ -1,31 +1,45 @@
 package com.appsculture.climato.utils
 
 import android.arch.lifecycle.MutableLiveData
+import android.content.Context
 import android.util.Log
 import androidx.work.Worker
+import androidx.work.WorkerParameters
+import com.appsculture.climato.app.APIConstants
+import com.appsculture.climato.app.ClimatoApplication
 import com.appsculture.climato.data.ForecastRepository
+import com.appsculture.climato.di.component.DaggerAppComponent
+import com.appsculture.climato.di.modules.APIModule
+import com.appsculture.climato.di.modules.AppModule
 import com.appsculture.climato.model.Forecast
 import com.appsculture.climato.module.home.HomeViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class BackgroundSyncWeather : Worker() {
+class BackgroundSyncWeather(context: Context, workerParameters: WorkerParameters) : Worker(context, workerParameters) {
 
-    private lateinit var forecastRepository: ForecastRepository
+    @Inject
+    lateinit var forecastRepository: ForecastRepository
     private lateinit var disposableObserver: DisposableObserver<List<Forecast>>
     var allForecastsResult: MutableLiveData<List<Forecast>> = MutableLiveData()
     var allForecastsError: MutableLiveData<String> = MutableLiveData()
 
-    override fun doWork(): WorkerResult {
+    override fun doWork(): Result {
+        if (applicationContext is ClimatoApplication) {
+            DaggerAppComponent.builder()
+                .appModule(AppModule(applicationContext as ClimatoApplication))
+                .aPIModule(APIModule(APIConstants.baseUrl))
+                .build().inject(applicationContext as ClimatoApplication)
+        }
         Log.d("Jeetu", "in side doWork()")
-        val resolver = applicationContext.contentResolver
         try {
             getForeCastFromRepository()
-            return WorkerResult.SUCCESS
+            return Result.SUCCESS
         } catch (t: Throwable) {
-            return WorkerResult.FAILURE
+            return Result.FAILURE
         }
     }
 
@@ -43,12 +57,14 @@ class BackgroundSyncWeather : Worker() {
                 allForecastsError.postValue(e.message)
             }
         }
+        forecastRepository.let {
+            it!!.getSavedForecasts()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .debounce(HomeViewModel.timeout, TimeUnit.MILLISECONDS)
+                .subscribe(disposableObserver)
+        }
 
-        forecastRepository.getSavedForecasts()
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .debounce(HomeViewModel.timeout, TimeUnit.MILLISECONDS)
-            .subscribe(disposableObserver)
     }
 
 }

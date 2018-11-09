@@ -52,9 +52,8 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener,
         initViews()
         initViewModel()
 
-        val interval =
-            ClimatoApplication.preferenceHelper.defaultPref()
-                .getString(Constants.refreshIntervalKey, Constants.defaultInterval)
+        val interval = ClimatoApplication.preferenceHelper.defaultPref()
+            .getString(Constants.refreshIntervalKey, Constants.defaultInterval)
 
         homeViewModel.backgroundSync(interval.toLong())
         getWorkerStatus()
