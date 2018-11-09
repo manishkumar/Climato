@@ -26,7 +26,7 @@ class MapMarkerInfo(private val context: Context, private val formatter: Weather
         val forecast = marker?.tag as Forecast
         name.text = forecast.name
         description.text = forecast.weather?.main
-        temperature.text = formatter.prettyKelvinToCelsius(forecast.main?.temperature)
+        temperature.text = formatter.convertTemperature(forecast.main?.temperature)
         //temperature.text = forecast
         return view
     }
