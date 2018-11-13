@@ -26,6 +26,7 @@ class ForecastListAdapter(
         var pressure = itemView.findViewById<TextView>(R.id.tvPressure)
         var humidity = itemView.findViewById<TextView>(R.id.tvHumidity)
         var temperature = itemView.findViewById<TextView>(R.id.tvTemperature)
+        var time = itemView.findViewById<TextView>(R.id.tvTimeStamp)
         var icon = itemView.findViewById<TextView>(R.id.ivIcon)
     }
 
@@ -53,8 +54,17 @@ class ForecastListAdapter(
                     holder.view.context.getString(R.string.humidity_value),
                     forecast.main?.humidity
                 )
-        holder.temperature.text =
-                formatter.convertTemperature(forecast.main?.temperature)
+        forecast.main?.temperature?.let {
+            holder.temperature.text =
+                    formatter.convertTemperature(it)
+        }
+        forecast.date?.let {
+            holder.time.text = String.format(
+                holder.view.context.getString(R.string.time_value),
+                formatter.formatTimestamp(it)
+            )
+        }
+
         holder.view.setOnClickListener {
             listener.clicked(forecast)
         }

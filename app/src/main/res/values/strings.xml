@@ -20,6 +20,7 @@
     <string name="pressure" translatable="false">%1$.1f hPa</string>
     <string name="humidity_value" translatable="false">Humidity: %1$d%%</string>
     <string name="pressure_value" translatable="false">Pressure: %1$.1f hPa</string>
+    <string name="time_value" translatable="false">Last update: %1$s</string>
 
 
     <string name="detail.city.label" translatable="false">City</string>
@@ -28,6 +29,7 @@
     <string name="detail.min.label" translatable="false">Min temp</string>
     <string name="detail.pressure.label" translatable="false">Pressure</string>
     <string name="detail.humidity.label" translatable="false">Humidity</string>
+    <string name="detail.updated.label" translatable="false">Last update</string>
 
     <string name="weather_sunny" translatable="false">&#xf00d;</string>
     <string name="weather_clear_night" translatable="false">&#xf02e;</string>

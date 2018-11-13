@@ -16,10 +16,12 @@ import javax.inject.Inject
 
 class NotificationProvider @Inject constructor(private val context: Context) {
 
-    val WEATHER_NOTIFICATION_ID = 1200
-    val CHANNEL_ID = "weather_channel_id"
+    companion object {
+        val notificationId = 1200
+        val channelId = "climato_weather_channel"
+    }
 
-    fun showNotification(forecast: Forecast) {
+    fun show(forecast: Forecast) {
 
         val notificationTitle = forecast.name
         val notificationText = forecast.weather?.main
@@ -30,7 +32,7 @@ class NotificationProvider @Inject constructor(private val context: Context) {
             val channelName = context.getString(R.string.channel_name)
             val descriptionText = context.getString(R.string.channel_description)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, channelName, importance)
+            val channel = NotificationChannel(channelId, channelName, importance)
             channel.description = descriptionText
             notificationManager.createNotificationChannel(channel)
         }
@@ -41,7 +43,7 @@ class NotificationProvider @Inject constructor(private val context: Context) {
             .setContentTitle(notificationTitle)
             .setContentText(notificationText)
             .setAutoCancel(true)
-            .setChannelId(CHANNEL_ID)
+            .setChannelId(channelId)
 
         val detailIntentForToday = Intent(context, DetailActivity::class.java)
 
@@ -51,6 +53,6 @@ class NotificationProvider @Inject constructor(private val context: Context) {
             .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
 
         notificationBuilder.setContentIntent(resultPendingIntent)
-        notificationManager.notify(WEATHER_NOTIFICATION_ID, notificationBuilder.build())
+        notificationManager.notify(notificationId, notificationBuilder.build())
     }
 }

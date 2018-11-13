@@ -2,7 +2,6 @@ package com.appsculture.climato.module.detail
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
@@ -13,7 +12,6 @@ import com.appsculture.climato.model.Forecast
 import com.appsculture.climato.utils.WeatherDataFormatter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
 class DetailActivity : AppCompatActivity() {
@@ -39,11 +37,25 @@ class DetailActivity : AppCompatActivity() {
         tvCity.text = forecast.name
         tvCountry.text = forecast.sys?.country
         tvCondition.text = forecast.weather?.main
-        tvTempMax.text = formatter.convertTemperature(forecast.main?.tempMax)
-        tvTempMin.text = formatter.convertTemperature(forecast.main?.tempMin)
         tvHumidity.text = formatter.prettyHumidity(forecast.main?.humidity)
         tvPressure.text = formatter.prettyPressure(forecast.main?.pressure)
-        tvTemperature.text = formatter.convertTemperature(forecast.main?.temperature)
+
+        forecast.main?.tempMax?.let {
+            tvTempMax.text = formatter.convertTemperature(it)
+        }
+
+        forecast.main?.tempMin?.let {
+            tvTempMin.text = formatter.convertTemperature(it)
+        }
+
+
+        forecast.main?.temperature?.let {
+            tvTemperature.text = formatter.convertTemperature(it)
+        }
+
+        forecast.date?.let {
+            tvUpdatedAt.text = formatter.formatTimestamp(it)
+        }
 
         val id = forecast.weather?.id.let { it!! }
         val date = forecast.date.let { it!! }

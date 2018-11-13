@@ -54,7 +54,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mapViewModel.allForecastsResult.observe(this, Observer<List<Forecast>> {
             it?.let {
-                renderMarkers(it!!)
+                renderMarkers(it)
             }
         })
 
@@ -84,16 +84,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun renderMarkers(forecasts: List<Forecast>) {
+        if (forecasts.isEmpty()) {
+            return
+        }
+
         //Clears map markers
-        map.clear();
+        map.clear()
 
         val infoWindow = MapMarkerInfo(this, formatter)
         map.setInfoWindowAdapter(infoWindow)
 
         for (forecast in forecasts) {
             var markerOption = MarkerOptions() as MarkerOptions
-            forecast.coordinate.let {
-                markerOption.position(LatLng(it!!.lat, it.lon))
+
+            forecast.coordinate?.let {
+                markerOption.position(LatLng(it.lat, it.lon))
                 markerOption.title(forecast.name)
                 var marker = map.addMarker(markerOption) as Marker
                 marker.setIcon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher));
@@ -101,16 +106,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
 
         }
-        map.moveCamera(
-            CameraUpdateFactory.newLatLngZoom(
-                LatLng(
-                    forecasts.get(0).coordinate!!.lat,
-                    forecasts.get(0).coordinate!!.lon
-                ), 10f
+
+        forecasts.first().coordinate?.let {
+            val coordinates = LatLng(it.lat, it.lon)
+            map.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(coordinates, 10f)
             )
-        )
-
-
+        }
     }
 
 }
