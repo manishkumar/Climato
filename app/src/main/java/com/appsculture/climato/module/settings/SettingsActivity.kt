@@ -23,7 +23,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val id = item!!.itemId
+        val id = item?.itemId
         if (id == android.R.id.home) {
             onBackPressed()
             return true

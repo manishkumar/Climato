@@ -3,9 +3,11 @@ package com.appsculture.climato.utils
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
-import com.appsculture.climato.R
+import android.text.format.DateFormat
 import java.util.*
 import javax.inject.Inject
+import com.appsculture.climato.R
+
 
 class WeatherDataFormatter {
 
@@ -18,7 +20,7 @@ class WeatherDataFormatter {
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
     }
 
-    fun convertTemperature(temperature: Double?): String {
+    fun convertTemperature(temperature: Double): String {
 
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         val unit = context.getString(R.string.unit_key)
@@ -34,31 +36,34 @@ class WeatherDataFormatter {
         }
     }
 
-    fun kelvinToCelsius(temperature: Double?): Double {
-        val temperature = temperature.let { it!! }
+    fun kelvinToCelsius(temperature: Double): Double {
         return (Math.round(temperature - 273.15F)).toDouble()
     }
 
-    fun prettyKelvinToCelsius(temperature: Double?): String {
-        val temperature = temperature.let { it!! }
+    fun prettyKelvinToCelsius(temperature: Double): String {
         val converted = kelvinToCelsius(temperature)
         return "$converted ${context.getString(R.string.celsius)}"
     }
 
-
-    fun kelvinToFahrenheit(temperature: Double?): Double {
+    fun kelvinToFahrenheit(temperature: Double): Double {
         return (Math.round((kelvinToCelsius(temperature) * 9.0 / 5.0) + 32.0)).toDouble()
     }
 
-    fun prettyKelvinToFahrenheit(temperature: Double?): String {
-        val temperature = temperature.let { it!! }
+    fun prettyKelvinToFahrenheit(temperature: Double): String {
         val converted = kelvinToFahrenheit(temperature)
         return "$converted ${context.getString(R.string.fahrenheit)}"
+    }
+
+    fun formatTimestamp(timeStamp: Long): String {
+        val cal = Calendar.getInstance(Locale.ENGLISH)
+        cal.timeInMillis = timeStamp * 1000L
+        return DateFormat.format("hh:mm a", cal).toString()
     }
 
     fun prettyPressure(pressure: Double?): String {
         return String.format(context.getString(R.string.pressure), pressure)
     }
+
     fun prettyHumidity(humidity: Int?): String {
         return String.format(context.getString(R.string.humidity), humidity)
     }

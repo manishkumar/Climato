@@ -27,4 +27,23 @@
         <item name="12">720</item>
         <item name="24">1440</item>
     </string-array>
+
+    <integer-array name="extremeWeatherCodes">
+        <item>200</item>
+        <item>201</item>
+        <item>202</item>
+        <item>211</item>
+        <item>212</item>
+        <item>221</item>
+        <item>230</item>
+        <item>231</item>
+        <item>232</item>
+        <item>503</item>
+        <item>504</item>
+        <item>602</item>
+        <item>622</item>
+        <item>762</item>
+        <item>771</item>
+        <item>781</item>
+    </integer-array>
 </resources>
