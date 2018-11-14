@@ -17,8 +17,8 @@ import javax.inject.Inject
 class NotificationProvider @Inject constructor(private val context: Context) {
 
     companion object {
-        val notificationId = 1200
-        val channelId = "climato_weather_channel"
+        const val notificationId = 1200
+        const val channelId = "climato_weather_channel"
     }
 
     fun show(forecast: Forecast) {

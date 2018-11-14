@@ -4,9 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.text.format.DateFormat
+import com.appsculture.climato.R
 import java.util.*
 import javax.inject.Inject
-import com.appsculture.climato.R
 
 
 class WeatherDataFormatter {
@@ -71,11 +71,11 @@ class WeatherDataFormatter {
     fun weatherIcon(actualId: Int, date: Long): String {
         val cal = Calendar.getInstance()
         cal.timeInMillis = date * 1000
-        val hourOfDay = cal.get(Calendar.HOUR_OF_DAY)
+        var hourOfDay = cal.get(Calendar.HOUR_OF_DAY)
 
         val id = actualId / 100
         var icon = ""
-        if (id == 800) {
+        if (actualId == 800) {
             if (hourOfDay >= 7 && hourOfDay < 20) {
                 icon = context.getString(R.string.weather_sunny)
             } else {
