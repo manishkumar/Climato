@@ -19,7 +19,6 @@ import com.appsculture.climato.model.Forecast
 import com.appsculture.climato.module.detail.DetailActivity
 import com.appsculture.climato.module.map.MapsActivity
 import com.appsculture.climato.module.settings.SettingsActivity
-import com.appsculture.climato.utils.NotificationProvider
 import com.appsculture.climato.utils.WeatherDataFormatter
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_home.*
