@@ -1,8 +1,10 @@
 package com.appsculture.climato.app
 
+import com.appsculture.climato.BuildConfig
+
 object APIConstants {
     const val baseUrl = "http://api.openweathermap.org/data/2.5/"
-    const val apiKey = "f3a52babb832d59696c3804837596ced"
+    const val apiKey = BuildConfig.apiKey
 }
 
 object DBConstants {
