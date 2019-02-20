@@ -3,8 +3,7 @@ package com.appsculture.climato.app
 import android.app.Activity
 import android.app.Application
 import com.appsculture.climato.di.component.DaggerAppComponent
-import com.appsculture.climato.di.modules.APIModule
-import com.appsculture.climato.di.modules.AppModule
+import com.appsculture.climato.di.modules.*
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -21,6 +20,9 @@ class ClimatoApplication : Application(), HasActivityInjector {
         DaggerAppComponent.builder()
             .appModule(AppModule(this))
             .aPIModule(APIModule(APIConstants.baseUrl))
+            .storageModule(StorageModule())
+            .syncModule(SyncModule())
+            .viewModelModule(ViewModelModule())
             .build().inject(this)
     }
 
